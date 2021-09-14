@@ -3,6 +3,7 @@
 use Jmsfwk\Adf\Inline\Text;
 use Jmsfwk\Adf\Marks\Em;
 use Jmsfwk\Adf\Marks\Strike;
+use Jmsfwk\Adf\Marks\Strong;
 use PHPUnit\Framework\TestCase;
 
 class TextTest extends TestCase
@@ -40,6 +41,25 @@ class TextTest extends TestCase
                 [
                     'type' => 'strike',
                 ]
+            ],
+        ]));
+    }
+
+    /**
+    * @test
+    */
+    public function supports_strong_mark()
+    {
+        $text = new Text('this text is bold', new Strong());
+        $doc = $text->toJson();
+
+        $this->assertJsonStringEqualsJsonString($doc, json_encode([
+            'type' => 'text',
+            'text' => 'this text is bold',
+            'marks' => [
+                [
+                    'type' => 'strong',
+                ],
             ],
         ]));
     }

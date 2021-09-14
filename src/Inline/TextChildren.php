@@ -4,6 +4,7 @@ namespace Jmsfwk\Adf\Inline;
 
 use Jmsfwk\Adf\Marks\Em;
 use Jmsfwk\Adf\Marks\Link;
+use Jmsfwk\Adf\Marks\Strong;
 
 trait TextChildren
 {
@@ -27,6 +28,12 @@ trait TextChildren
     {
         $this->append(new Text($text, new Link($href, $title)));
 
+        return $this;
+    }
+
+    public function strong(string $text): self
+    {
+        $this->append(new Text($text, new Strong()));
         return $this;
     }
 }
