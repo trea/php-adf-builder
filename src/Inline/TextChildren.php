@@ -6,6 +6,7 @@ use Jmsfwk\Adf\Marks\Em;
 use Jmsfwk\Adf\Marks\Link;
 use Jmsfwk\Adf\Marks\Mark;
 use Jmsfwk\Adf\Marks\Strong;
+use Jmsfwk\Adf\Marks\Underline;
 
 trait TextChildren
 {
@@ -35,6 +36,12 @@ trait TextChildren
     public function strong(string $text): self
     {
         $this->append(new Text($text, new Strong()));
+        return $this;
+    }
+
+    public function underline(string $text): self
+    {
+        $this->append(new Text($text, new Underline()));
         return $this;
     }
 }

@@ -4,6 +4,7 @@ use Jmsfwk\Adf\Inline\Text;
 use Jmsfwk\Adf\Marks\Em;
 use Jmsfwk\Adf\Marks\Strike;
 use Jmsfwk\Adf\Marks\Strong;
+use Jmsfwk\Adf\Marks\Underline;
 use PHPUnit\Framework\TestCase;
 
 class TextTest extends TestCase
@@ -61,6 +62,25 @@ class TextTest extends TestCase
                     'type' => 'strong',
                 ],
             ],
+        ]));
+    }
+
+    /**
+    * @test
+    */
+    public function supports_underline_mark()
+    {
+        $text = new Text('this text is underlined', new Underline());
+        $doc = $text->toJson();
+
+        $this->assertJsonStringEqualsJsonString($doc, json_encode([
+            'type' => 'text',
+            'text' => 'this text is underlined',
+            'marks' => [
+                [
+                    'type' => 'underline'
+                ]
+            ]
         ]));
     }
 }
