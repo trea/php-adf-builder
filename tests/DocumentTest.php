@@ -375,5 +375,40 @@ class DocumentTest extends TestCase
             ]
         ]));
     }
+
+    /**
+    * @test
+    */
+    public function document_with_a_paragraph_that_contains_inline_code()
+    {
+        $doc = (new Document())->paragraph()->text("An example of a div. ")->text('<div class="panel panel-default">', new \Jmsfwk\Adf\Marks\Code());
+
+        $result = $doc->end()->toJson();
+
+        $this->assertJsonStringEqualsJsonString($result, json_encode([
+            'version' => 1,
+            'type' => 'doc',
+            'content' => [
+                [
+                    'type' => 'paragraph',
+                    'content' => [
+                        [
+                            'type' => 'text',
+                            'text' => 'An example of a div. '
+                        ],
+                        [
+                            'type' => 'text',
+                            'text' => '<div class="panel panel-default">',
+                            'marks' => [
+                                [
+                                    'type' => 'code'
+                                ]
+                            ]
+                        ]
+                    ]
+                ]
+            ]
+        ]));
+    }
 }
 

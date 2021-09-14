@@ -83,4 +83,23 @@ class TextTest extends TestCase
             ]
         ]));
     }
+
+    /**
+    * @test
+    */
+    public function supports_code_mark()
+    {
+        $text = new Text('<div class="panel panel-default">', new \Jmsfwk\Adf\Marks\Code());
+        $doc = $text->toJson();
+
+        $this->assertJsonStringEqualsJsonString($doc, json_encode([
+            'type' => 'text',
+            'text' => '<div class="panel panel-default">',
+            'marks' => [
+                [
+                    'type' => 'code',
+                ]
+            ]
+        ]));
+    }
 }
