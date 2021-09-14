@@ -246,5 +246,39 @@ class DocumentTest extends TestCase
             ],
         ]));
     }
+
+    /**
+    * @test
+    */
+    public function text_with_multiple_marks()
+    {
+        $doc = (new Document())->paragraph()->text("This text is bold and italicized", new \Jmsfwk\Adf\Marks\Strong(), new \Jmsfwk\Adf\Marks\Em());
+
+        $result = $doc->end()->toJson();
+
+        $this->assertJsonStringEqualsJsonString($result, json_encode([
+            'version' => 1,
+            'type' => 'doc',
+            'content' => [
+                [
+                    'type' => 'paragraph',
+                    'content' => [
+                        [
+                            'type' => 'text',
+                            'text' => 'This text is bold and italicized',
+                            'marks' => [
+                                [
+                                    'type' => 'strong',
+                                ],
+                                [
+                                    'type' => 'em',
+                                ]
+                            ]
+                        ]
+                    ]
+                ]
+            ]
+        ]));
+    }
 }
 

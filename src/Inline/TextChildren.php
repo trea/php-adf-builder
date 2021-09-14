@@ -4,15 +4,16 @@ namespace Jmsfwk\Adf\Inline;
 
 use Jmsfwk\Adf\Marks\Em;
 use Jmsfwk\Adf\Marks\Link;
+use Jmsfwk\Adf\Marks\Mark;
 use Jmsfwk\Adf\Marks\Strong;
 
 trait TextChildren
 {
     abstract protected function append($node);
 
-    public function text(string $text): self
+    public function text(string $text, Mark ...$marks): self
     {
-        $this->append(new Text($text));
+        $this->append(new Text($text, ...$marks));
 
         return $this;
     }
