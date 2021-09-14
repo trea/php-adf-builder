@@ -280,5 +280,100 @@ class DocumentTest extends TestCase
             ]
         ]));
     }
+
+    /**
+    * @test
+    */
+    public function document_with_strong_text()
+    {
+        $doc = (new Document())->paragraph()->strong("Some bold text");
+
+        $result = $doc->end()->toJson();
+
+        $this->assertJsonStringEqualsJsonString($result, json_encode([
+            'version' => 1,
+            'type' => 'doc',
+            'content' => [
+                [
+                    'type' => 'paragraph',
+                    'content' => [
+                        [
+                            'type' => 'text',
+                            'text' => 'Some bold text',
+                            'marks' => [
+                                [
+                                    'type' => 'strong',
+                                ]
+                            ]
+                        ]
+                    ]
+                ]
+            ]
+        ]));
+    }
+
+    /**
+    * @test
+    */
+    public function document_with_underlined_text()
+    {
+        $doc = (new Document())->paragraph()->underline("Some underlined text");
+
+        $result = $doc->end()->toJson();
+
+        $this->assertJsonStringEqualsJsonString($result, json_encode([
+            'version' => 1,
+            'type' => 'doc',
+            'content' => [
+                [
+                    'type' => 'paragraph',
+                    'content' => [
+                        [
+                            'type' => 'text',
+                            'text' => 'Some underlined text',
+                            'marks' => [
+                                [
+                                    'type' => 'underline',
+                                ]
+                            ]
+                        ]
+                    ]
+                ]
+            ]
+        ]));
+    }
+
+    /**
+    * @test
+    */
+    public function document_with_a_paragraph_that_includes_a_hardbreak()
+    {
+        $doc = (new Document())->paragraph()->text("A line of text")->hardBreak()->text("Another line of text");
+
+        $result = $doc->end()->toJson();
+
+        $this->assertJsonStringEqualsJsonString($result, json_encode([
+            'version' => 1,
+            'type' => 'doc',
+            'content' => [
+                [
+                    'type' => 'paragraph',
+                    'content' => [
+                        [
+                            'type' => 'text',
+                            'text' => 'A line of text'
+                        ],
+                        [
+                            'type' => 'hardBreak',
+                        ],
+                        [
+                            'type' => 'text',
+                            'text' => 'Another line of text'
+                        ]
+                    ]
+                ]
+            ]
+        ]));
+    }
 }
 
