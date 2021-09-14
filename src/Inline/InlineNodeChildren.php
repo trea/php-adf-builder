@@ -21,4 +21,12 @@ trait InlineNodeChildren
 
         return $this;
     }
+
+    public function hardBreak(): self
+    {
+        $break = new Hardbreak();
+        $this->append($break);
+
+        return $this;
+    }
 }
