@@ -45,4 +45,11 @@ trait GroupNodeChildren
 
         return $panel;
     }
+
+    public function bulletList(): BulletList
+    {
+        $list = new BulletList($this);
+        $this->append($list);
+        return $list;
+    }
 }

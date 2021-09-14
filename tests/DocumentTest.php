@@ -184,5 +184,67 @@ class DocumentTest extends TestCase
             ],
         ]));
     }
+
+    /**
+    * @test
+    */
+    public function document_with_bullet_list()
+    {
+        $list = (new Document())
+            ->bulletList();
+
+        $list->listItem()->paragraph()->text('An item that is text');
+        $list->listItem()->paragraph()->link('A link', 'https://example.com');
+
+        $list = $list->end()->toJson();
+
+        $this->assertJsonStringEqualsJsonString($list, json_encode([
+            'version' => 1,
+            'type' => 'doc',
+            'content' => [
+                [
+                    'type' => 'bulletList',
+                    'content' => [
+                        [
+                            'type' => 'listItem',
+                            'content' => [
+                                [
+                                    'type' => 'paragraph',
+                                    'content' => [
+                                        [
+                                            'type' => 'text',
+                                            'text' => 'An item that is text'
+                                        ]
+                                    ]
+                                ]
+                            ]
+                        ],
+                        [
+                            'type' => 'listItem',
+                            'content' => [
+                                [
+                                    'type' => 'paragraph',
+                                    'content' => [
+                                        [
+                                            'type' => 'text',
+                                            'text' => 'A link',
+                                            'marks' => [
+                                                [
+                                                    'type' => 'link',
+                                                    'attrs' => [
+                                                        'href' => 'https://example.com'
+                                                    ]
+                                                ]
+                                            ]
+                                        ]
+                                    ]
+                                ]
+                            ]
+                        ]
+                    ],
+                ],
+            ],
+        ]));
+    }
 }
 
